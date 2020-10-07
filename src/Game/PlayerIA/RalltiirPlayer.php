@@ -15,19 +15,26 @@ class RalltiirPlayer extends Player
     protected $opponentSide;
     protected $result;
 
-
-    function contreAttack($opponentLastChoice){
-        return $opponentLastChoice;
-    }
-
     public function getChoice()
     {
-        if ($this->result->getLastChoiceFor($this->mySide) === "rock")
-            return parent::paperChoice();
-        else if ($this->result->getLastChoiceFor($this->mySide) === "paper")
-            return parent::scissorsChoice();
+        $nbsci = $this->result->getStatsFor($this->opponentSide)["scissors"];
+        $nbpap = $this->result->getStatsFor($this->opponentSide)["paper"];
+        $nbrock = $this->result->getStatsFor($this->opponentSide)["rock"];
+
+        $myOpponentLessCurrentChoice = "";
+
+        if ($nbsci <= $nbpap && $nbsci <= $nbrock)
+            $myOpponentLessCurrentChoice = parent::scissorsChoice();
+        else if ($nbpap < $nbsci && $nbpap < $nbrock)
+            $myOpponentLessCurrentChoice = parent::paperChoice();
         else
-            return parent::rockChoice();
+            $myOpponentLessCurrentChoice = parent::rockChoice();
+        
+        if ($this->result->getLastChoiceFor($this->mySide) === $myOpponentLessCurrentChoice)
+            return $myOpponentLessCurrentChoice;
+
+        else
+            return parent::paperChoice();
         
         // -------------------------------------    -----------------------------------------------------
         // How to get my Last Choice           ?    $this->result->getLastChoiceFor($this->mySide) -- if 0 (first round)
