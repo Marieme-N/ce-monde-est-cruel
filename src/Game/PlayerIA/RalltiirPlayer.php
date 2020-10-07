@@ -30,7 +30,7 @@ class RalltiirPlayer extends Player
 
     public function getChoice()
     {
-       return changeMyChoice($this->result->getLastChoiceFor($this->mySide));
+       //return changeMyChoice($this->result->getLastChoiceFor($this->mySide));
         
         // -------------------------------------    -----------------------------------------------------
         // How to get my Last Choice           ?    $this->result->getLastChoiceFor($this->mySide) -- if 0 (first round)
