@@ -15,8 +15,23 @@ class RalltiirPlayer extends Player
     protected $opponentSide;
     protected $result;
 
+    function changeMyChoice($lastChoice){
+        if ($lastChoice === "rock")
+            return "paper";
+        else if ($lastChoice === "paper")
+            return "scissors";
+        else
+            return "rock";
+    }
+
+    function contreAttack($opponentLastChoice){
+        return $opponentLastChoice;
+    }
+
     public function getChoice()
     {
+       return changeMyChoice($this->result->getLastChoiceFor($this->mySide));
+        
         // -------------------------------------    -----------------------------------------------------
         // How to get my Last Choice           ?    $this->result->getLastChoiceFor($this->mySide) -- if 0 (first round)
         // How to get the opponent Last Choice ?    $this->result->getLastChoiceFor($this->opponentSide) -- if 0 (first round)
@@ -43,6 +58,5 @@ class RalltiirPlayer extends Player
 
 
         return parent::rockChoice();
-
     }
 };
