@@ -7,7 +7,7 @@ use Hackathon\Game\Result;
 /**
  * Class RalltiirPlayers
  * @package Hackathon\PlayerIA
- * @author YOUR NAME HERE
+ * @author MARIEME NDIAYE
  */
 class RalltiirPlayer extends Player
 {
@@ -51,7 +51,7 @@ class RalltiirPlayer extends Player
         $myMoreCurrentChoice = $this->moreCurrentChoice($this->result->getStatsFor($this->mySide));
         $myLastChoice = $this->result->getLastChoiceFor($this->mySide);
         $myOpponentLastChoice = $this->result->getLastChoiceFor($this->opponentSide);
-
+        
         if (($myOpponentLastChoice === $myOpponentMoreCurrentChoice) && ($myMoreCurrentChoice !== $myOpponentLastChoice))
             return $myMoreCurrentChoice;
 
@@ -59,12 +59,13 @@ class RalltiirPlayer extends Player
             return $myOpponentLastChoice;
 
         if ($myMoreCurrentChoice === $myLastChoice)
-            return $myLessCurrentChoice;
+            return $myOpponentMoreCurrentChoice;
 
-        
+        if ($myOpponentLastChoice === $myMoreCurrentChoice)
+            return $myOpponentMoreCurrentChoice;
         
 
-        return $myMoreCurrentChoice;
+        return $myLessCurrentChoice;
         // -------------------------------------    -----------------------------------------------------
         // How to get my Last Choice           ?    $this->result->getLastChoiceFor($this->mySide) -- if 0 (first round)
         // How to get the opponent Last Choice ?    $this->result->getLastChoiceFor($this->opponentSide) -- if 0 (first round)
